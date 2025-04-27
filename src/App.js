@@ -21,6 +21,8 @@ import Footer from './components/Footer';
 
 
 import { Container } from 'react-bootstrap';
+import BookingSuccessPage from './components/BookingSuccessPage';
+import BookingFailPage from './components/BookingFailPage';
 
 
 function App() {
@@ -38,17 +40,19 @@ function App() {
                                 <Account />
                             </ProtectedRoute>
                         }></Route>
-
-
-                        {/* <Route path="/account" element={<Account />}></Route> */}
-
-                        {/* <Route path="/users" element={<UsersList />}></Route>
-
-                        <Route path="/bookings" element={<BookingsList />}></Route>
-
-                        <Route path="/hotels" element={<HotelsList />}></Route>*/}
                         <Route path="/hotels/:hotelId/rooms" element={<HotelDetailPage />}></Route>
                         <Route path="/booking/:roomId" element={<BookingForm />}></Route>
+                        <Route path="/booking/success" element={
+                            <ProtectedRoute allowedRoles={['user']}>
+                                <BookingSuccessPage />
+                            </ProtectedRoute>
+                        }></Route>
+                        <Route path="/booking/fail" element={
+                            <ProtectedRoute allowedRoles={['user']}>
+                                <BookingFailPage />
+                            </ProtectedRoute>
+                        }></Route>
+
                         <Route path="/hotels/:hotelId/reviews" element={<ReviewForm />}></Route>
                     </Routes>
                     <Footer />

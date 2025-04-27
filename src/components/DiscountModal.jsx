@@ -15,14 +15,18 @@ const DiscountModal = ({ show, handleClose }) => {
             // Имитация загрузки несколько секунд
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            const response = await api.get('/discounts/roulette/');
+            const response = await api.post('/discounts/roulette/');
             setDiscountText(
                 'Получена скидка ' + response.data.discount_amount + '%!\n' +
                 'Действует до ' + new Date(response.data.expires_at).toLocaleString()
             );
         } catch (error) {
             console.error(error);
-            setDiscountText(error.response.data.detail);
+            setDiscountText(
+                error.response.data.detail + 
+                error.response.data.discount_amount + '%!\n' +
+                'Действует до ' + new Date(error.response.data.expires_at).toLocaleString()
+            );
         } finally {
             setLoading(false);
         }

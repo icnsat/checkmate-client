@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { Form, Button } from "react-bootstrap";
+
 import api from '../api/api';
 
 const ReviewForm = () => {
@@ -36,7 +38,7 @@ const ReviewForm = () => {
 
     return (
         <div className="container my-4">
-            <h2>Оставить отзыв</h2>
+            {/* <h2>Оставить отзыв</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="rating" className="form-label">Оценка (1-5)</label>
@@ -65,7 +67,43 @@ const ReviewForm = () => {
                 </div>
 
                 <button type="submit" className="btn btn-primary">Отправить отзыв</button>
-            </form>
+            </form> */}
+
+            
+                {/* <div className="mt-5"> */}
+                    <h5 className="mb-3">Оставить отзыв</h5>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3" controlId="rating">
+                            <Form.Label>Оценка</Form.Label>
+                            <Form.Select
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                            >
+                                <option value="5">5 - Отлично</option>
+                                <option value="4">4 - Хорошо</option>
+                                <option value="3">3 - Удовлетворительно</option>
+                                <option value="2">2 - Плохо</option>
+                                <option value="1">1 - Ужасно</option>
+                            </Form.Select>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="comment">
+                        <Form.Label>Комментарий</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={3}
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                        />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Отправить отзыв
+                        </Button>
+                    </Form>
+                {/* </div> */}
+                
+
         </div>
     );
 };

@@ -11,10 +11,10 @@ const Registration = () => {
     // const [password1, setPassword1] = useState('');
     // const [password2, setPassword2] = useState('');
     const [formData, setFormData] = useState({
-        username: '',
         email: '',
-        password1: '',
-        password2: '', // Django ожидает password1 и password2
+        username: '',
+        password: '',
+        re_password: '', // Django ожидает password1 и password2
     });
     const handleFormChange = (e) => {
         setFormData({
@@ -32,7 +32,7 @@ const Registration = () => {
         try {
             const response = await api.post(
                 '/auth/users/',
-                // { username, emial, password1, password2 }
+                // { email, username, password1, password2 }
                 formData
             );
             // if (response.ok) {
@@ -79,8 +79,8 @@ const Registration = () => {
                             <Form.Label>Пароль</Form.Label>
                             <Form.Control 
                                 type="password"
-                                name="password1"
-                                value={formData.password1}
+                                name="password"
+                                value={formData.password}
                                 onChange={handleFormChange}
                                 required
                             />
@@ -90,8 +90,8 @@ const Registration = () => {
                             <Form.Label>Повторите пароль</Form.Label>
                             <Form.Control 
                                 type="password"
-                                name="password2"
-                                value={formData.password2}
+                                name="re_password"
+                                value={formData.re_password}
                                 onChange={handleFormChange}
                                 required
                             />
