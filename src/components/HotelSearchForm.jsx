@@ -6,8 +6,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import api from '../api/api';
 
 const HotelSearchForm = ({onHotelsFound}) => {
-    const [city, setCity] = useState(null); // Выбранный город (объект)
-    const [cityInput, setCityInput] = useState(''); // Вводимый текст
+    const [city, setCity] = useState(null);
+    const [cityInput, setCityInput] = useState('');
     const [cityOptions, setCityOptions] = useState([]);
     const [checkInDate, setCheckInDate] = useState(new Date());
     const [checkOutDate, setCheckOutDate] = useState(() => {
@@ -19,22 +19,21 @@ const HotelSearchForm = ({onHotelsFound}) => {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    // Загрузка городов при вводе
     useEffect(() => {
         const fetchCities = async () => {
-            if (cityInput.length > 2) { //2) {
+            if (cityInput.length > 2) {
                 setIsLoading(true);
                 try {
                     const response = await api.get('/cities/', {
                         params: {
-                            search: cityInput // Параметр для фильтрации
+                            search: cityInput
                         }
                     });
                     
                     setCityOptions(response.data.map(city => ({
                         value: city.id,
                         name: city.name,
-                        label: `${city.name}, ${city.country.name}` // Формат "Город, Страна"
+                        label: `${city.name}, ${city.country.name}`
                     })));
                 } catch (error) {
                     console.error('Error fetching cities:', error);
@@ -52,7 +51,6 @@ const HotelSearchForm = ({onHotelsFound}) => {
 
     const handleCheckInChange = (date) => {
         setCheckInDate(date);
-        // Если новая дата заезда позже даты выезда
         if (checkOutDate && date > checkOutDate) {
             const newCheckOut = new Date(date);
             newCheckOut.setDate(newCheckOut.getDate() + 1);
@@ -61,7 +59,6 @@ const HotelSearchForm = ({onHotelsFound}) => {
     };
 
     const handleCheckOutChange = (date) => {
-        // Не позволяем выбрать дату выезда раньше даты заезда
         if (date > checkInDate) {
             setCheckOutDate(date);
         }
@@ -71,13 +68,12 @@ const HotelSearchForm = ({onHotelsFound}) => {
         e.preventDefault();
 
         if (!city) {
-            alert('Пожалуйста, выберите город');
+            // alert('Пожалуйста, выберите город');
             return;
         }
         
         const searchData = {
             city_id: city.value,
-            // city_name: city.label.split(',')[0], // Извлекаем только название города
             check_in: checkInDate.toISOString().split('T')[0],
             check_out: checkOutDate.toISOString().split('T')[0],
             guests
@@ -87,12 +83,12 @@ const HotelSearchForm = ({onHotelsFound}) => {
             const response = await api.get('/search/', {
                 params: searchData
             });
-            onHotelsFound(response.data, city.name, checkInDate, checkOutDate, guests); // Отправляем найденные отели и название города
+            onHotelsFound(response.data, city.name, checkInDate, checkOutDate, guests);
 
         } catch (error) {
             console.error('Ошибка при загрузке отелей:', error);
             alert('Не удалось загрузить отели');
-            onHotelsFound([], city.name); // Если ошибка, отелей нет
+            onHotelsFound([], city.name);
         }
     };
 

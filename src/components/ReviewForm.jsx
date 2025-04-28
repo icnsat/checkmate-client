@@ -26,7 +26,6 @@ const ReviewForm = () => {
                 text,
                 rating: ratingInt,
             });
-            alert('Отзыв успешно отправлен!');
             navigate(`/hotels/${hotelId}/rooms`); // возвращаем на страницу отеля (или куда захочешь)
         } catch (error) {
             console.error(error);

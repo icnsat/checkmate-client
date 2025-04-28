@@ -3,7 +3,6 @@ import { jwtDecode } from 'jwt-decode';
 
 const token = localStorage.getItem('token');
 
-// Функция проверки валидности токена
 const isTokenValid = (token) => {
     if (!token) return false;
     try {
@@ -14,20 +13,7 @@ const isTokenValid = (token) => {
     }
 };
 
-// Функция загрузки начального состояния
 const loadInitialState = () => {
-    // if (!token || !isTokenValid(token)) {
-    //     localStorage.removeItem('token');
-    //     return {
-    //         token: null,
-    //         user: {
-    //         username: null,
-    //         role: null,
-    //         },
-    //         isAuthenticated: false,
-    //     };
-    // }
-
     if (isTokenValid(token)) {
         // Если токен валиден, декодируем данные
         const decoded = jwtDecode(token);
@@ -58,29 +44,8 @@ const loadInitialState = () => {
 const authSlice = createSlice({
     name: 'auth',
     initialState: loadInitialState(),
-
-    // {
-    //     token: null,
-    //     user: {
-    //         username: null,
-    //         // theme: 'light',
-    //         role: null,
-    //     },
-    //     isAuthenticated: false,
-    //     // isLoading: false,
-    //     // error: null
-    // },
-
     reducers: {
         login: (state, action) => {
-            // state.token = action.payload.token;
-            // state.user = {
-            //     username: action.payload.user.username,
-            //     // theme: action.payload.user.theme,
-            //     role: action.payload.user.role,
-            // }
-            // state.isAuthenticated = true;
-
             const { token } = action.payload;
             const decoded = jwtDecode(token);
             state.token = token;
@@ -96,7 +61,6 @@ const authSlice = createSlice({
             state.token = null;
             state.user = {
                 username: null,
-                // theme: action.payload.user.theme,
                 role:  null,
             }
             state.isAuthenticated = false;

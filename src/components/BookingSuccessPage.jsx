@@ -4,27 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const BookingSuccessPage = () => {
     return (
-        // <Container className="py-5 text-center">
-        //     <Row>
-        //         <Col>
-        //             <Alert variant="success">
-        //                 <Alert.Heading>Бронирование успешно!</Alert.Heading>
-        //                 <p>
-        //                     Ваше бронирование было успешно создано. Мы рады, что вы выбрали наш сервис.
-        //                 </p>
-        //             </Alert>
-
-        //             <div className="d-flex justify-content-center">
-        //                 <Button variant="primary" onClick={goToHome} className="mx-2">
-        //                     На главную страницу
-        //                 </Button>
-        //                 <Button variant="secondary" onClick={goToAccount} className="mx-2">
-        //                     Перейти в мой аккаунт
-        //                 </Button>
-        //             </div>
-        //         </Col>
-        //     </Row>
-        // </Container>
         <Container className="my-5">
             <Row className="text-center">
                 <Col>
@@ -36,15 +15,12 @@ const BookingSuccessPage = () => {
                         </svg>
                     </div>
 
-                    {/* Заголовок */}
                     <h1 className="text-success">Бронирование завершено!</h1>
 
-                    {/* Сообщение */}
                     <p className="mt-3 fs-5 text-secondary">
                         Ваш заказ в обработке. Он появится в списке заказов вашего аккаунта. Спасибо за использование нашего сервиса!
                     </p>
 
-                    {/* Кнопки */}
                     <div className="mt-4">
                         <Link to="/" className="btn btn-primary btn-lg me-2">На главную</Link>
                         <Link to="/account" className="btn btn-outline-secondary btn-lg">Мои бронирования</Link>

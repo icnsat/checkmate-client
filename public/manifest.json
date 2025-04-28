@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Checkmate",
+  "name": "Checkmate: Your mate to check into hotels",
   "icons": [
     {
       "src": "favicon.ico",

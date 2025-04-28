@@ -18,16 +18,13 @@ const BookingFailPage = () => {
             </svg>
         </div>
 
-        {/* Заголовок */}
         <h1 className="text-danger">Ваш аккаунт заблокирован</h1>
 
-        {/* Сообщение */}
         <p className="mt-3 fs-5 text-secondary">
             К сожалению, вы не можете сделать бронирование, так как ваш аккаунт был заблокирован.
             Пожалуйста, свяжитесь с администрацией для решения этого вопроса.
         </p>
 
-        {/* Кнопки */}
         <div className="mt-4">
             <Button variant="primary" size="lg" href="/" className="me-2">
                 На главную

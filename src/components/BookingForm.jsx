@@ -35,7 +35,7 @@ const BookingForm = () => {
                 dispatch(savePendingBooking({
                     ...state,
                     hotelId: state.hotelId,
-                    roomId: roomId, // ДОБАВЛЯЕМ roomId сюда!
+                    roomId: roomId,
                     checkInDate: state.checkInDate instanceof Date ? state.checkInDate.toISOString() : state.checkInDate,
                     checkOutDate: state.checkOutDate instanceof Date ? state.checkOutDate.toISOString() : state.checkOutDate,
                 }));            
@@ -63,7 +63,7 @@ const BookingForm = () => {
             } catch (error) {
                 console.error(error);
             } finally {
-                setLoading(false);  // После завершения запроса данные загружены
+                setLoading(false);
             }
         };
 
@@ -73,10 +73,13 @@ const BookingForm = () => {
     }, [state, roomId]);
 
     if (loading) {
-        return <div>Загрузка...</div>; // Если данные ещё загружаются
+        return (
+            <Container className="text-center py-5">
+                <h2>Загрузка данных...</h2>
+            </Container>
+        )
     }
 
-    // Обработка ошибки, если hotel или room равны null
     if (!room || !hotel) {
         return (
             <Container className="text-center py-5">
@@ -124,14 +127,12 @@ const BookingForm = () => {
             };
 
             await api.post('/bookings/', bookingData);
-            alert('Бронирование успешно создано!');
             dispatch(clearPendingBooking);
             navigate('/booking/success', { state: { bookingData } });
         } catch (error) {
             alert('Ошибка при бронировании');
             console.error("Ошибка при бронировании:", error);
             if (error.response) {
-                // Выводим полный ответ от сервера, чтобы понять, что не так
                 console.error("Ответ сервера:", error.response.data);
                 alert(`Ошибка: ${error.response.data.non_field_errors ? error.response.data.non_field_errors.join(', ') : 'Неизвестная ошибка'}`);
             } else {

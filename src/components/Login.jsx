@@ -14,35 +14,20 @@ const Login = () => {
 
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    // const location = useLocation();
     const dispatch = useDispatch();
     const pendingBookingData = useSelector(state => state.booking.pendingBookingData);
-
-    // const from = location.state?.from?.pathname || '/'; // если нет from, перенаправим на главную
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await api.post( // fetch('http://localhost:5000/api/auth/login', {
+            const response = await api.post(
                 'auth/jwt/create/',
                 { email, password }
             );
             if (response.status >= 200 && response.status < 300) {
                 const { access: token } = response.data;
-
-                // const decoded = jwtDecode(token);
-                // dispatch(login({ 
-                //     token,
-                //     user: {  // Передаем объект user
-                //       username: decoded.username, // Берем напрямую из decoded
-                //       role: decoded.role         // Берем напрямую из decoded
-                //     }
-                // }));
-
                 dispatch(login({ token }))
-                // navigate('/');
-                // navigate(from, { replace: true }); // редиректим туда, откуда пришёл
                 if (pendingBookingData) {
                     navigate('/booking/' + pendingBookingData.roomId, { state: pendingBookingData });
                     dispatch(clearPendingBooking()); // очищаем чтобы не мусорить
@@ -50,10 +35,10 @@ const Login = () => {
                     navigate('/');
                 }
             } else {
-                setError('Недействительные учетные данные.'); //Invalid credentials!
+                setError('Недействительные учетные данные.');
             }
         } catch (err) {
-            setError('Возникла ошибка при отправке запроса.'); //An error occurred.
+            setError('Возникла ошибка при отправке запроса.');
         }
     };
 

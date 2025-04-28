@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Alert, Badge, Image } from 'react-bootstrap';
 import { useSelector } from "react-redux";
-// import { FaTrash, FaEdit, FaPaperPlane } from 'react-icons/fa';
 
 import { Trash, Pencil } from 'react-bootstrap-icons';
-
-
 
 import api from '../api/api';
 import StarRating from './StarRating';
@@ -43,7 +40,6 @@ const HotelDetailPage = () => {
                     });
                     setRooms(roomsResponse.data);
                 } else {
-                    // Если state не передан, просто получаем все номера
                     const roomsResponse = await api.get(`/hotels/${hotelId}/rooms/`);
                     setRooms(roomsResponse.data);
                 }
@@ -69,7 +65,11 @@ const HotelDetailPage = () => {
         });
     };
 
-    if (!hotel) return <div>Загрузка...</div>;
+    if (!hotel) return (
+        <Container className="text-center py-5">
+            <h2>Загрузка данных...</h2>
+        </Container>
+    )
 
     return (
         <div>
@@ -146,12 +146,10 @@ const HotelDetailPage = () => {
                                         </div>
                                         
                                         <p className="text-muted mb-2">
-                                            {/* <i className="bi bi-geo-alt me-1"></i> */}
                                             {room.description}
                                         </p>
 
                                         <p className="text-muted mb-2">
-                                            {/* <i className="bi bi-geo-alt me-1"></i> */}
                                             Вместимость: {room.capacity}
                                         </p>
                                         
@@ -197,9 +195,6 @@ const HotelDetailPage = () => {
                                                     {new Date(review.created_at).toLocaleDateString('ru-RU')}
                                                 </small>
                                             </div>
-                                            {/* <Badge bg="primary" className="fs-6">
-                                                {review.rating} / 5
-                                            </Badge> */}
                                             <StarRating rating={review.rating} />
                                         </div>
                                         <Card.Text>{review.text}</Card.Text>

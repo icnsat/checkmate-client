@@ -5,16 +5,11 @@ import { useNavigate, Link } from "react-router-dom";
 import api from '../api/api';
 
 const Registration = () => {
-
-    // const [email, setEmail] = useState('');
-    // const [username, setUsername] = useState('');
-    // const [password1, setPassword1] = useState('');
-    // const [password2, setPassword2] = useState('');
     const [formData, setFormData] = useState({
         email: '',
         username: '',
         password: '',
-        re_password: '', // Django ожидает password1 и password2
+        re_password: '',
     });
     const handleFormChange = (e) => {
         setFormData({
@@ -32,17 +27,15 @@ const Registration = () => {
         try {
             const response = await api.post(
                 '/auth/users/',
-                // { email, username, password1, password2 }
                 formData
             );
-            // if (response.ok) {
             if (response.status >= 200 && response.status < 300) {
                 navigate('/login');
             } else {
-                setError('Не удалось зарегистрироваться.'); // Registraton failed.
+                setError('Не удалось зарегистрироваться.');
             }
         } catch (err) {
-            setError('Возникла ошибка при отправке запроса.'); // An error occurred
+            setError('Возникла ошибка при отправке запроса.');
         }
     };
 

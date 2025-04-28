@@ -5,7 +5,6 @@ import { Button, Navbar, Container, Nav } from "react-bootstrap";
 
 import { logout } from "../slices/authSlice";
 import DiscountModal from './DiscountModal';
-import api from '../api/api';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -41,30 +40,6 @@ const Header = () => {
         navigate('/');
     };
 
-
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-    // const [modalContent, setModalContent] = useState(null);
-    // const [isLoading, setIsLoading] = useState(false);
-
-    // const openModal = async () => {
-    //     setIsModalOpen(true);
-    //     setIsLoading(true);
-    //     setModalContent('Генерируем персональную скидку...');
-
-    //     try {
-    //         await new Promise(resolve => setTimeout(resolve, 2000));
-    //         const response = await api.get('/discounts/roulette/');
-    //         setModalContent(response.data);
-    //     } catch (error) {
-    //         console.error(error);
-    //         setModalContent('Ошибка загрузки');
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // const closeModal = () => setIsModalOpen(false);
-
     const [showModal, setShowModal] = useState(false);
 
 
@@ -94,7 +69,6 @@ const Header = () => {
                     )}
 
                     {IsUser && (
-                        // <button onClick={openModal} className="btn btn-outline-warning fw-bold">Получить скидку!</button>
                         <Button variant="warning" onClick={() => setShowModal(true)}>
                             Получить скидку!
                         </Button>
@@ -102,20 +76,6 @@ const Header = () => {
 
                 </Nav>
 
-                {/* {isModalOpen && (
-                    <div className="modal-backdrop" onClick={closeModal}>
-                        <div className="modal-content" onClick={e => e.stopPropagation()}>
-                            <button className="close-button" onClick={closeModal}>X</button>
-                            <div className="modal-body">
-                                {modalContent ? (
-                                    <div>{modalContent}</div>
-                                ) : (
-                                    <div>Загрузка...</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                )} */}
 
                 <DiscountModal show={showModal} handleClose={() => setShowModal(false)} />
 

@@ -10,7 +10,7 @@ const ProtectedRoute = ({ allowedRoles, children }) => {
   // }
 
   if (!allowedRoles.includes(user.role)) {
-    // Если роль не разрешена - можно отправить на главную или показать 403 страницу
+    // Если роль не разрешена - редирект на главную страницу
     return <Navigate to="/" replace />;
   }
 

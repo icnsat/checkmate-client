@@ -32,7 +32,6 @@ const DiscountModal = ({ show, handleClose }) => {
         }
     };
 
-    // Когда окно открывается — сразу запрашиваем данные
     const handleShow = () => {
         fetchDiscount();
     };
@@ -61,11 +60,6 @@ const DiscountModal = ({ show, handleClose }) => {
                     ))
                 )}
             </Modal.Body>
-            {/* <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                Закрыть
-                </Button>
-            </Modal.Footer> */}
         </Modal>
     );
 };
